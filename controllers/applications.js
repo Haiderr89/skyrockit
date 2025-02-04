@@ -26,10 +26,10 @@ const createApplication = async (req, res) => {
 const index = async (req, res) => {
     try {
         const currentUser = await User.findById(req.params.userId)
-        res.render('applications/index.ejs', { 
+        res.render('applications/index.ejs', {
             title: 'Your Applications',
             applications: currentUser.applications,
-         })
+        })
 
     } catch (error) {
         console.log(error);
@@ -43,7 +43,7 @@ const show = async (req, res) => {
         const application = currentUser.applications.id(req.params.applicationId)
         res.render('applications/show.ejs', {
             title: application.title,
-            application: application, 
+            application: application,
         })
     } catch (error) {
         console.log(error);
@@ -51,9 +51,55 @@ const show = async (req, res) => {
     }
 }
 
+const deleteApplication = async (req, res) => {
+    try {
+        const currentUser = await User.findById(req.params.userId)
+        console.log(currentUser);
+        currentUser.applications.id(req.params.applicationId).deleteOne();
+        await currentUser.save();
+        res.redirect(`/users/${currentUser._id}/applications`)
+
+    } catch (error) {
+        console.log(error);
+        res.redirect('/')
+    }
+}
+
+const edit = async (req, res) => {
+    try {
+        const currentUser = await User.findById(req.params.userId)
+        const application = currentUser.applications.id(req.params.applicationId)
+        res.render('applications/edit.ejs', {
+            title: application.title,
+            application,
+        })
+    } catch (err) {
+        console.log(err)
+        res.redirect('/')
+    }
+}
+
+
+const update = async (req, res) => {
+    try {
+        const currentUser = await User.findById(req.params.userId)
+        const application = currentUser.applications.id(req.params.applicationId)
+
+        application.set(req.body)
+        await currentUser.save()
+
+        res.redirect(`/users/${currentUser._id}/applications/${req.params.applicationId}`)
+    } catch (error) {
+        console.log(error);
+        res.redirect('/')
+    }
+}
 module.exports = {
     newApplication,
     createApplication,
     index,
     show,
+    deleteApplication,
+    edit,
+    update,
 }

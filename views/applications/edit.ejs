@@ -1,0 +1,35 @@
+<%- include('../partials/head') %>
+    <div class="container">
+
+        <h1>Editing <%= application.title %> at <%= application.company %></h1>
+        <form action="/users/<%= user._id %>/applications/<%= application._id %>?_method=PUT" method="POST">
+
+            <label for="">Company:</label>
+            <input type="text" name="company" value="<%= application.company %>">
+
+            <label for="">Title:</label>
+            <input type="text" name="title" value="<%= application.title %>">
+
+            <label for="">Notes:</label>
+            <textarea name="notes" id=""><%= application.notes %></textarea>
+
+            <label for="">Posting Link:</label>
+            <input type="text" name="postingLink" value="<%= application.postingLink %>">
+
+            <label for="">Status:</label>
+            <select name="status" id="">
+                <option value="" selected disabled></option>
+                <option value="interested" <%= application.status === "interested" ? "selected" : '' %>>Interested</option>
+                <option value="applied" <%= application.status === "applied" ? "selected" : '' %>>Applied</option>
+                <option value="interviewing" <%= application.status === "interviewing" ? "selected" : '' %>>Interviewing</option>
+                <option value="rejected" <%= application.status === "rejected" ? "selected" : '' %>>Rejected</option>
+                <option value="accepted" <%= application.status === "accepted" ? "selected" : '' %>>Accepted</option>
+            </select>
+            
+            <br>
+            <button type="submit" class="">Update Application</button>
+            
+        </form>
+        
+    </div>
+<%- include('../partials/footer') %>

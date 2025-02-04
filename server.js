@@ -34,7 +34,6 @@ app.use(morgan('dev'));
 //-----------------------------------------------------
 
 //Middleware
-app.use(express.urlencoded({extended: false})) // parsing the form data
 app.use(express.static(path.join(__dirname, "public")));
 app.use(
     session({
@@ -94,8 +93,11 @@ app.get('/users/:userId/applications', applicationsCtrl.index); // show or view 
 
 app.get('/users/:userId/applications/:applicationId', applicationsCtrl.show ) // show detail of one application
 
+app.delete('/users/:userId/applications/:applicationId', applicationsCtrl.deleteApplication)
 
+app.get('/users/:userId/applications/:applicationId/edit', applicationsCtrl.edit)
 
+app.put('/users/:userId/applications/:applicationId', applicationsCtrl.update)
 //-----------------------------------------------------
 app.listen(port, () => {
     console.log(`The express app is ready on port ${port}!`);

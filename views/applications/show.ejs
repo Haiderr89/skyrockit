@@ -1,37 +1,47 @@
 <%- include('../partials/head') %>
-    <div class="container">
+<div class="container">
 
-        <br>
-        <div class="card" style="width: 18rem">
-            <div class="card-body">
-                <h5 class="card-title"><%= application.title %></h5>
-                <h6 class="card-subtitle mb-2 text-muted">
-                    <%= application.company %>
-                </h6>
-                <p class="card-text"><%= application.notes %></p>
-                <a href="<%= application.postingLink %>" class="card-link">Application link</a>
+  <br>
+  <div class="card" style="width: 18rem">
+    <div class="card-body">
+      <h5 class="card-title"><%= application.title %></h5>
+      <h6 class="card-subtitle mb-2 text-muted">
+        <%= application.company %>
+      </h6>
+      <p class="card-text"><%= application.notes %></p>
+      <a href="<%= application.postingLink %>" class="card-link">Application link</a>
 
-                <br><br>
+      <br><br>
 
-                <a href="/users/<%= user._id %>/applications" class="card-link">Go Back</a> 
-                
-                <br><br>
+      <a href="/users/<%= user._id %>/applications" class="card-link">Go Back</a>
 
-                <% if (application.status === 'interested') { %>
-                <span class="badge bg-warning"><%= application.status %></span>
-                <% } else if (application.status === 'applied'){ %>
-                <span class="badge bg-info"><%= application.status %></span>
-                <% } else if (application.status === 'interviewing'){ %>
-                <span class="badge bg-secondary"
-                    ><%= application.status %></span
-                >
-                <% } else if (application.status === 'rejected'){ %>
-                <span class="badge bg-danger"><%= application.status %></span>
-                <% } else { %>
-                <span class="badge bg-success"><%= application.status %></span>
-                <% } %>
-            </div>
-        </div>
-        
+      <br><br>
+
+      <% if (application.status === 'interested') { %>
+      <span class="badge bg-warning"><%= application.status %></span>
+      <% } else if (application.status === 'applied'){ %>
+      <span class="badge bg-info"><%= application.status %></span>
+      <% } else if (application.status === 'interviewing'){ %>
+      <span class="badge bg-secondary"><%= application.status %></span>
+      <% } else if (application.status === 'rejected'){ %>
+      <span class="badge bg-danger"><%= application.status %></span>
+      <% } else { %>
+      <span class="badge bg-success"><%= application.status %></span>
+      <% } %>
+
+      <div class="but">
+        <form action="/users/<%= user._id %>/applications/<%= application._id %>?_method=DELETE" method="POST">
+          <br>
+          <button type="submit" class="btn btn-danger"> Delete Application</button>
+        </form>
+
+        <a href="/users/<%=user._id%>/applications/<%=application._id %>/edit">
+        <button type="submit" class="btn btn-secondary">Edit</button>
+      </a>
+      </div>
+
     </div>
+  </div>
+
+</div>
 <%- include('../partials/footer') %>
