@@ -1,0 +1,17 @@
+<%- include('../partials/head') %>
+
+<h1>Sign in to your account!</h1>
+<form action="/auth/sign-in" method="POST" class="container">
+
+<label for="">Username: </label>
+<input for="" name="username" >
+
+<label for="" >Password: </label>
+<input for="" name="password" type="password">
+
+<button type="submit">Sign in</button>
+
+<p> <%= msg %> </p>
+</form>
+
+<%- include('../partials/footer') %>
