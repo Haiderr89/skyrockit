@@ -1,0 +1,42 @@
+<%- include('../partials/head') %>
+<div class="container">
+<h1>Your Applications</h1> <br>
+    <div class="card-container">
+        <% applications.forEach(application => { %>
+
+        <div class="card" style="width: 18rem">
+            <div class="card-body">
+                <h5 class="card-title"><%= application.title %></h5>
+                <h6 class="card-subtitle mb-2 text-muted">
+                    <%= application.company %>
+                </h6>
+                <p class="card-text"><%= application.notes %></p>
+                <a href="<%= application.postingLink %>" class="card-link">Application link</a>
+
+                <br><br>
+
+                <a href="/users/<%= user._id %>/applications/<%= application._id%>" class="card-link">Show More!</a> 
+                
+                <br><br>
+
+                <% if (application.status === 'interested') { %>
+                <span class="badge bg-warning"><%= application.status %></span>
+                <% } else if (application.status === 'applied'){ %>
+                <span class="badge bg-info"><%= application.status %></span>
+                <% } else if (application.status === 'interviewing'){ %>
+                <span class="badge bg-secondary"
+                    ><%= application.status %></span
+                >
+                <% } else if (application.status === 'rejected'){ %>
+                <span class="badge bg-danger"><%= application.status %></span>
+                <% } else { %>
+                <span class="badge bg-success"><%= application.status %></span>
+                <% } %>
+            </div>
+        </div>
+        <% }) %>
+        
+    </div>
+    
+</div>
+<%- include('../partials/footer') %>

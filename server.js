@@ -61,7 +61,8 @@ app.use(passUserToView);
 const pagesCtrl = require('./controllers/pages');
 const authCtrl = require('./controllers/auth');
 const exp = require("constants");
-const vipCtrl = require('./controllers/vip');
+// const vipCtrl = require('./controllers/vip');
+const applicationsCtrl = require('./controllers/applications');
 
 
 //-----------------------------------------------------
@@ -80,7 +81,20 @@ app.post("/auth/sign-in", authCtrl.signIn);
 
 app.get('/auth/sign-out', authCtrl.signOut);
 
-app.get("/vip-lounge", isSignedIn, vipCtrl.welcome);
+// app.get("/vip-lounge", isSignedIn, vipCtrl.welcome);
+
+app.use(isSignedIn); //anything under here, the user must be signed in
+
+//userId: 67a1c075761606394519e9a9
+app.get('/users/:userId/applications/new', applicationsCtrl.newApplication); // view new applicationn form
+
+app.post("/users/:userId/applications", applicationsCtrl.createApplication); // posting a new application
+
+app.get('/users/:userId/applications', applicationsCtrl.index); // show or view all the applications
+
+app.get('/users/:userId/applications/:applicationId', applicationsCtrl.show ) // show detail of one application
+
+
 
 //-----------------------------------------------------
 app.listen(port, () => {
